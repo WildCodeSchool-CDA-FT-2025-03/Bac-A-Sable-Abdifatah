@@ -4,12 +4,6 @@ export type Repo = {
     url: string;
     createdAt: string;
     updatedAt: string;
-    labels: {
-        id: string;
-        name: string;
-        description: string;
-        color: string;
-    }[];
     languages: {
         size: number;
         node: {

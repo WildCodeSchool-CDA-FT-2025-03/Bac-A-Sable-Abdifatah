@@ -1,6 +1,8 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import jsonData from '../../data.json';
 import {Repo} from './repos.type';
+import { validateRepo } from './repos.validation';
+import { json } from 'stream/consumers';
 const repos = express.Router();
 
 repos.get('/', (req: Request, res: Response)=>{
@@ -25,7 +27,13 @@ repos.get('/:id', (req: Request, res: Response)=>{
     }else{
         res.status(404).send(`Repo ${id} not found`);
     }
-
 })
+
+repos.post("/", validateRepo, (req: Request, res: Response, next: NextFunction) => {
+    const repo: Repo = { ...req.body, id: Math.ceil(Math.random() * 1000).toString(), createdAt: new Date().toISOString() };
+    console.log({ repo });
+    jsonData.push(repo);
+    res.status(201).send("repo created : " + repo.id);
+});
 
 export default repos;
