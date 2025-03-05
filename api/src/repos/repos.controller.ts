@@ -7,6 +7,16 @@ repos.get('/', (req: Request, res: Response)=>{
     res.status(200).json(jsonData);
 })
 
+repos.get('/names', (req: Request, res: Response) => {
+    const names = jsonData.map((repo: any) => {
+        return {
+            name: repo.name,
+            languages: repo.languages.map((lang: any) => lang.node.name),
+        }
+    });
+    res.status(200).json(names);
+})
+
 repos.get('/:id', (req: Request, res: Response)=>{
     const id = req.params.id;
     const repo = jsonData.find((repo: any) => repo.id === id) as Repo;
