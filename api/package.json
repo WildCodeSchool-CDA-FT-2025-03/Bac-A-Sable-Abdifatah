@@ -1,0 +1,21 @@
+{
+  "name": "bac-a-sable-abdifatah",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "getRepo": "gh repo list abdifatah1 --json id,name,labels,url,createdAt,updatedAt,languages > ./api/data.json",
+    "dev": "ts-node-dev ./src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.9",
+    "ts-node-dev": "^2.0.0"
+  }
+}
