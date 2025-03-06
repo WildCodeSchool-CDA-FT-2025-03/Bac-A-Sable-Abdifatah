@@ -17,7 +17,7 @@ const createRepoSchema = Joi.object({
 const validateRepo = (req: Request, res: Response, next:NextFunction) => {
     const { error } = createRepoSchema.validate(req.body);
     if (error) {
-        res.status(400).send(error.details[0].message);
+        res.status(422).send(error.details[0].message);
     }else{
         next();
     }
