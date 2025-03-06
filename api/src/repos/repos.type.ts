@@ -12,4 +12,5 @@ export type Repo = {
     createdAt: string;
     updatedAt: string;
     languages: Languages[];
+    [key: string]: any;
 };
