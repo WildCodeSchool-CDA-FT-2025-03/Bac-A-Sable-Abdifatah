@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
 
 const createRepoSchema = Joi.object({
-    name: Joi.string().required(),
+    name: Joi.string(),
     url: Joi.string().required(),
     languages: Joi.array().items(
         Joi.object({

@@ -7,19 +7,22 @@ const repos = express.Router();
 let data = jsonData;
 repos.get('/', (req: Request, res: Response)=>{
     const queryParam = req.query;
-    let repos = queryParam.isPrivate ? data.filter((repo: Repo) => repo.isPrivate.toString() === queryParam.isPrivate) : data;
+    let filteredData = queryParam.isPrivate ? data.filter((repo: Repo) => repo.isPrivate.toString() === queryParam.isPrivate) : data;
 
-    repos = queryParam.limit ? data.slice(0, +queryParam.limit) : data;
+    filteredData = queryParam.limit ? data.slice(0, +queryParam.limit) : data;
 
     if (queryParam.fields) {
-        const fields = typeof queryParam.fields === "string" ? queryParam.fields.split(',') : [];
-        data = data.map((repo: Repo) => {
-            const repoData = fields.reduce((acc, field) => ({ ...acc, [field]: repo[field] }), {});
-            return repoData;
-        }) as Repo[];
+        const fields = typeof queryParam.fields === "string" ? queryParam.fields.split(",") : []
+        filteredData = filteredData.map((repo: Repo) => {
+            const filteredRepo = fields.reduce((acc: Repo, field: keyof Repo) => {
+                acc[field] = repo[field];
+                return acc;
+            }, {} as Repo)
+            return filteredRepo
+        })
     }
 
-    res.status(200).json(data);
+    res.status(200).json(filteredData);
 })
 
 repos.get('/:id', (req: Request, res: Response)=>{
@@ -58,5 +61,29 @@ repos.delete("/:id", (req: Request, res: Response) => {
     }
 })
 
+repos.put("/:id", validateRepo, (req: Request, res: Response) => {
+    const id = req.params.id;
+    const repo = data.find((repo: Repo) => repo.id === id);
+    if (!repo) {
+        res.status(404).send(`Repo ${id} not found`);
+    } else {
+        const updatedRepo = { ...repo, ...req.body, updatedAt: new Date().toISOString() };
+        data = data.map((repo: Repo) => repo.id === id ? updatedRepo : repo);
+        res.status(200).send(`Repo ${id} updated`);
+    }
+
+});
+
+repos.patch("/:id", validateRepo, (req: Request, res: Response) => {
+    const id = req.params.id;
+    const repo = data.find((repo: Repo) => repo.id === id);
+    if (!repo) {
+        res.status(404).send(`Repo ${id} not found`);
+    } else {
+        const updatedRepo = { ...repo, ...req.body, updatedAt: new Date().toISOString() };
+        data = data.map((repo: Repo) => repo.id === id ? updatedRepo : repo);
+        res.status(200).send(`Repo ${id} updated`);
+    }
+});
 
 export default repos;
