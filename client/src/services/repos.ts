@@ -4,19 +4,34 @@ import { client } from "./client";
 
 export const useRepos = () => {
   const [repos, setRepos] = useState<Repo[]>([]);
-    console.log(import.meta.env.VITE_API_URL)
-  useEffect(() => {
-      client.get("/repos")
+  const [oneRepos, setOneRepos] = useState<Repo>();
+
+  const getAllRepos = async () => {
+    client.get("/repos")
       .then((repos) => {
-        console.log(repos.data)
         setRepos(repos.data);
       })
-      .catch((error) =>{
+      .catch((error) => {
         console.error(error)
       })
+  };
+
+  const getOneRepos = (id: string) => {
+    client.get(`/repos/${id}`).then((repo) => {
+      setOneRepos(repo.data as Repo);
+    })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+
+  useEffect(() => {
+    getAllRepos();
   }, []);
-  console.log(repos)
-  return { repos };
+  return { repos, oneRepos, getOneRepos };
 };
+
+
+
 
 
