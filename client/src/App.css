@@ -51,3 +51,10 @@
   align-items: center;
   background-color: #024a5eaa;
 }
+select {
+  padding: 0.5em;
+  margin: 0.5em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 70px;
+}
