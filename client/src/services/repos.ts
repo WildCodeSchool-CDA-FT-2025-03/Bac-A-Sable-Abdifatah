@@ -28,5 +28,13 @@ export const useRepos = () => {
       });
   };
 
-  return { repos, oneRepos, getOneRepos, getAllRepos };
+  const addNewRepo = async (repo: Repo) => {
+    try {
+      await client.post("/repos", repo);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return { repos, oneRepos, getOneRepos, getAllRepos, addNewRepo };
 };

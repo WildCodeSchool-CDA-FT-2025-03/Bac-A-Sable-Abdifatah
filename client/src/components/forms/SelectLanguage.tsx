@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { forwardRef, useEffect } from 'react'
 import useLanguages from '../../services/useLanguages';
 type SelectFormProps = {
-    value: string;
     name: string;
     title: string;
-    handleNewRepo: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
-export default function SelectLanguage({ value, name, title, handleNewRepo }: SelectFormProps ) {
+const SelectLanguage = forwardRef<HTMLSelectElement, SelectFormProps>(({ name, title }, ref) => {
     const {languages, getAllLanguages} = useLanguages();
 
     useEffect(()=>{
@@ -16,12 +14,13 @@ export default function SelectLanguage({ value, name, title, handleNewRepo }: Se
   return (
       <label htmlFor="">
           {title}
-          <select name={name} value={value} id="" onChange={handleNewRepo}>
+          <select name={name} ref={ref} id="" >
               {languages.length > 0 && languages.map((lang) => (
                   <option key={lang} value={lang}>{lang}</option>
               ))}
           </select>
       </label>
   )
-}
+})
 
+export default SelectLanguage;
