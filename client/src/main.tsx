@@ -8,6 +8,7 @@ import Repo from './pages/Repo.tsx'
 import FAQ from './pages/FAQ.tsx'
 import Contact from './pages/Contact.tsx'
 import { client } from './services/client.ts'
+import RepoForm from './pages/RepoForm.tsx'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: '/repos/:id',
     element: <Repo />,
+  },
+  {
+    path:'/repos/create',
+    element: <RepoForm />,
   },
   {
     path: 'FAQ',
