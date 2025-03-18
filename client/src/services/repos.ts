@@ -36,5 +36,13 @@ export const useRepos = () => {
     }
   };
 
-  return { repos, oneRepos, getOneRepos, getAllRepos, addNewRepo };
+  const deleteRepo = async (id: string) => {
+    try {
+      await client.delete(`/repos/${id}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return { repos, oneRepos, getOneRepos, getAllRepos, addNewRepo, deleteRepo };
 };

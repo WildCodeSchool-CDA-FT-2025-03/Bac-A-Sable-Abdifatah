@@ -1,15 +1,21 @@
-import { useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { ReposCard } from '../components/RepoCard';
 import { useRepos } from '../services/repos';
 function Home() {
-  const { repos, getAllRepos } = useRepos();
+  const { repos, getAllRepos, deleteRepo } = useRepos();
   const [searchParam, setSearchParam] = useSearchParams();
-    useEffect(() => {
+  const [repoDeleted, setRepoDeleted] = useState(false);
+  useEffect(() => {
+    setRepoDeleted(false)
     getAllRepos(searchParam.get('limit') || '5');
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParam]);
+  }, [searchParam, repoDeleted]);
 
+  const deleteSelectedRepo = (id: string) => {
+    deleteRepo(id)
+    setRepoDeleted(true)
+  }
   return (
     <>
       <p>Liste de Repo depuis mon github</p>
@@ -26,7 +32,7 @@ function Home() {
       <div className="repoList">
         {
           repos.length > 0 && repos.map((repo) => (
-            <Link key={repo.id} to={`/repos/${repo.id}`}> <ReposCard cls={"repoCard"} key={repo.id} repo={repo} /></Link>
+            <ReposCard cls={"repoCard"} key={repo.id} repo={repo} deleteSelectedRepo={deleteSelectedRepo} />
           ))
         }
       </div>
