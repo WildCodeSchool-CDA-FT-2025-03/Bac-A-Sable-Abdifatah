@@ -30,7 +30,7 @@ export const useRepos = () => {
 
   const addNewRepo = async (repo: Repo) => {
     try {
-      await client.post("/repos", repo);
+      return await client.post("/repos", repo);
     } catch (error) {
       console.error(error);
     }

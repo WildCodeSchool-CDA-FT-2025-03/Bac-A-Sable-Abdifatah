@@ -11,7 +11,7 @@ export default function Repo() {
     return (
         <>
             {oneRepos && 
-                <div key={oneRepos.id}>
+                <div className='create-repo' key={oneRepos.id}>
                     <p>URL : <a href={oneRepos.url}> {oneRepos.url}</a></p>
                     <p>Name : {oneRepos.name}</p>
                     <p> Languages : {oneRepos.languages.map((lang) => (

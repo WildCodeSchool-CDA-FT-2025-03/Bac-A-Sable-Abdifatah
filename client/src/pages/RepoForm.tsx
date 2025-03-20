@@ -1,41 +1,25 @@
-import React, { useRef } from 'react'
-// import { Repo } from '../types/repos.type';
-import InputForm from '../components/forms/InputForm';
-import SelectLanguage from '../components/forms/SelectLanguage';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputFormGroup from '../components/forms/InputFormGroup';
+import { useEffect, useRef, useState } from 'react';
 import { Repo } from '../types/repos.type';
 import { useRepos } from '../services/repos';
-
-// const initialRepo = {
-//     name: "",
-//     url: "",
-//     languages: [{
-//         size: 0,
-//         node: {
-//             name: ""
-//         }
-//     }],
-//     isPrivate: false
-// }
+import useLanguages from '../services/useLanguages';
+import { Navigate } from 'react-router-dom';
 
 export default function RepoForm() {
-    // const [newRepo, setNewRepo] = React.useState<Repo>(initialRepo);
     const inputName = useRef<HTMLInputElement>(null);
     const inputUrl = useRef<HTMLInputElement>(null);
-    const inputIsPrivate = useRef<HTMLInputElement>(null);
     const selectLanguages = useRef<HTMLSelectElement>(null);
-    const { addNewRepo } = useRepos();
-    // const handleNewRepo = (
-    //     e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
-    // ) => {
-    //     if(e.target.name === "languages"){
-    //         setNewRepo((prev) => ({
-    //             ...prev, languages: [{size:0, node:{name: e.target.value}}]
-    //         }))
-    //     }else{
-    //         setNewRepo({ ...newRepo, [e.target.name]: e.target.value })
-    //     }
-    // }
+    const inputIsPrivate = useRef<HTMLInputElement>(null);
+    const { languages, getAllLanguages } = useLanguages();
 
+    useEffect(() => {
+        getAllLanguages()
+    }, [])
+    const { addNewRepo } = useRepos();
+    const [redirect, setRedirect] = useState(false);
+    const [createdId, setCreatedId] = useState(null);
     const handleSubmitRepo = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -48,7 +32,7 @@ export default function RepoForm() {
                 const newRepo: Repo = {
                     name: inputName.current?.value,
                     url: inputUrl.current?.value,
-                    isPrivate: inputIsPrivate.current?.value === "on" ? true : false,
+                    isPrivate: inputIsPrivate.current?.checked,
                     languages: [
                         {
                             size: 0,
@@ -57,47 +41,45 @@ export default function RepoForm() {
                     ]
 
                 }
-                console.log(newRepo)
-                await addNewRepo(newRepo)
+                const createdRepo = await addNewRepo(newRepo);
+                if (createdRepo) {
+                    setCreatedId(createdRepo.data.createdRepoId)
+                }
+                setRedirect(true);
             } else {
                 throw new Error("invalid from")
             }
         } catch (error) {
             console.error(error)
         }
-        // console.log(newRepo)
     }
-    return (
+    if (redirect) {
+        return <Navigate to={`/repos/${createdId}`} replace />;
+    }
 
-        <div className='repoForm'>
+    return (
+        <Form className='create-repo' onSubmit={handleSubmitRepo}>
             <h1>Créer une repo</h1>
-            <form onSubmit={handleSubmitRepo}>
-                <InputForm
-                    name='name'
-                    title='Repo Name'
-                    ref={inputName}
-                />
-                <InputForm
-                    name='url'
-                    title='Repo URL'
-                    ref={inputUrl}
-                />
-                <SelectLanguage
-                    name='languages'
-                    title='Repo Languages'
-                    ref={selectLanguages}
-                />
-                <div className="form-group">
-                    <label htmlFor="">
-                        Repo isPrivate
-                        <input type="checkbox" className='form-check-input' name='isPrivate' ref={inputIsPrivate} />
-                    </label>
-                    <div className="input-group-text">
-                        <input type="checkbox" aria-label="Checkbox for following text input" />
-                    </div>
-                </div>
-                <button className='createButton ' type="submit">Créer</button>
-            </form>
-        </div>
-    )
+            <InputFormGroup label="Le nom de repo" name="name" type="text" ref={inputName} />
+            <InputFormGroup label="URL" name="url" type="text" ref={inputUrl} />
+
+            <Form.Group className="mb-3" controlId="">
+                <Form.Label>Selectionner une langue</Form.Label>
+                <Form.Select aria-label="Default select example" name="languages" ref={selectLanguages}>
+                    {languages.length > 0 && languages.map((lang) => (
+                        <option key={lang} value={lang}>{lang}</option>
+                    ))}
+                </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Repo privé" ref={inputIsPrivate} />
+            </Form.Group>
+            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                <Button variant="btn btn-success me-md-2" type="submit">
+                    Créer
+                </Button>
+            </div>
+        </Form>
+    );
 }

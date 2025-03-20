@@ -25,16 +25,16 @@ export const ReposCard = ({ repo, cls, deleteSelectedRepo }: ReposCardProps) => 
         <div className="">
             {
                 <div className={cls} key={repo.id}>
-                    <p>
-                        <Link key={repo.id} to={`/repos/${repo.id}`}>
+                    <Link key={repo.id} to={`/repos/${repo.id}`}>
+                        <p>
                             URL : {repo.url}
-                        </Link>
-                    </p>
+                        </p>
 
-                    <p>Name : {repo.name}</p>
-                    <p> Languages : {repo.languages.map((lang) => (
-                        <span key={lang.node.name}>{lang.node.name}<br /></span>
-                    ))}</p>
+                        <p>Name : {repo.name}</p>
+                        <p> Languages : {repo.languages.map((lang) => (
+                            <span key={lang.node.name}>{lang.node.name}<br /></span>
+                        ))}</p>
+                    </Link>
                     <div className="actionButtons">
                         <button type="button" className="mr-3 mx-3 btn btn-warning" onClick={editRepo} >Modifier</button>
                         {/* <button type="button" className="delete btn btn-danger" onClick={() => { if (repo.id) deleteSelectedRepo(repo.id) }}>Supprimer</button> */}

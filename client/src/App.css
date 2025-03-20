@@ -81,3 +81,12 @@ form label input, .selectLanguage {
 .createButton {
   background-color: #198754;
 }
+
+.create-repo{
+  background-color: #024a5eaa;
+  border: 1px solid #024a5eaa;
+  border-radius: 5px;
+  color: white;
+  width: 500px;
+  padding: 12px;
+}
