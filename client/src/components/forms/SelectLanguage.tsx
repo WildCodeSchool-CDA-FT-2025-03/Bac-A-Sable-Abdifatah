@@ -5,22 +5,24 @@ type SelectFormProps = {
     title: string;
 }
 const SelectLanguage = forwardRef<HTMLSelectElement, SelectFormProps>(({ name, title }, ref) => {
-    const {languages, getAllLanguages} = useLanguages();
+    const { languages, getAllLanguages } = useLanguages();
 
-    useEffect(()=>{
+    useEffect(() => {
         getAllLanguages()
-    },[])
+    }, [])
     console.log(name)
-  return (
-      <label htmlFor="">
-          {title}
-          <select name={name} ref={ref} id="" >
-              {languages.length > 0 && languages.map((lang) => (
-                  <option key={lang} value={lang}>{lang}</option>
-              ))}
-          </select>
-      </label>
-  )
+    return (
+        <div className="form-group">
+            <label htmlFor="">
+                {title}
+                <select className='selectLanguage' name={name} ref={ref} id="" >
+                    {languages.length > 0 && languages.map((lang) => (
+                        <option key={lang} value={lang}>{lang}</option>
+                    ))}
+                </select>
+            </label>
+        </div>
+    )
 })
 
 export default SelectLanguage;

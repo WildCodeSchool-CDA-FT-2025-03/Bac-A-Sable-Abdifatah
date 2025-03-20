@@ -69,12 +69,12 @@ export default function RepoForm() {
     }
     return (
 
-        <div>
-            <h1>Repo Form</h1>
+        <div className='repoForm'>
+            <h1>Créer une repo</h1>
             <form onSubmit={handleSubmitRepo}>
-                <InputForm 
-                name='name'
-                title='Repo Name'
+                <InputForm
+                    name='name'
+                    title='Repo Name'
                     ref={inputName}
                 />
                 <InputForm
@@ -82,16 +82,21 @@ export default function RepoForm() {
                     title='Repo URL'
                     ref={inputUrl}
                 />
-                <SelectLanguage 
-                name='languages'
-                title='Repo Languages'
+                <SelectLanguage
+                    name='languages'
+                    title='Repo Languages'
                     ref={selectLanguages}
                 />
-                <label htmlFor="">
-                    Repo isPrivate
-                    <input type="checkbox" name='isPrivate' ref={inputIsPrivate} />
-                </label>
-                <button type="submit">Submit</button>
+                <div className="form-group">
+                    <label htmlFor="">
+                        Repo isPrivate
+                        <input type="checkbox" className='form-check-input' name='isPrivate' ref={inputIsPrivate} />
+                    </label>
+                    <div className="input-group-text">
+                        <input type="checkbox" aria-label="Checkbox for following text input" />
+                    </div>
+                </div>
+                <button className='createButton ' type="submit">Créer</button>
             </form>
         </div>
     )
