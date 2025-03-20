@@ -26,11 +26,15 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/repos/:id',
+    path: '/repos/:id?',
     element: <Repo />,
   },
   {
-    path:'/repos/create',
+    path: '/repos/create/',
+    element: <RepoForm />,
+  },
+  {
+    path: '/repos/update/:id?',
     element: <RepoForm />,
   },
   {

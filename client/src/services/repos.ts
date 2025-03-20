@@ -36,13 +36,29 @@ export const useRepos = () => {
     }
   };
 
-  const deleteRepo = async (id: string) => {
-    try {
-      await client.delete(`/repos/${id}`);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    const updateRepo = async (repo: Repo, id: string) => {
+      try {
+        return await client.put(`/repos/${id}`, repo);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  return { repos, oneRepos, getOneRepos, getAllRepos, addNewRepo, deleteRepo };
+    const deleteRepo = async (id: string) => {
+      try {
+        await client.delete(`/repos/${id}`);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    return {
+      repos,
+      oneRepos,
+      getOneRepos,
+      getAllRepos,
+      addNewRepo,
+      updateRepo,
+      deleteRepo,
+    };
 };

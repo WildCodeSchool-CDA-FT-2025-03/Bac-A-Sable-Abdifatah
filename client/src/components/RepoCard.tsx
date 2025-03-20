@@ -1,5 +1,5 @@
 import { Repo } from "../types/repos.type"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ModalRepo from "./ModalRepo";
 import { useState } from "react";
 
@@ -10,13 +10,9 @@ type ReposCardProps = {
 }
 export const ReposCard = ({ repo, cls, deleteSelectedRepo }: ReposCardProps) => {
     const [show, setShow] = useState(false);
-
+    const navigate = useNavigate();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    const editRepo = (): void => {
-        // TODO: Implement editRepo
-    }
 
     const confirmAction = (): void => {
         if (repo.id) deleteSelectedRepo(repo.id)
@@ -36,8 +32,7 @@ export const ReposCard = ({ repo, cls, deleteSelectedRepo }: ReposCardProps) => 
                         ))}</p>
                     </Link>
                     <div className="actionButtons">
-                        <button type="button" className="mr-3 mx-3 btn btn-warning" onClick={editRepo} >Modifier</button>
-                        {/* <button type="button" className="delete btn btn-danger" onClick={() => { if (repo.id) deleteSelectedRepo(repo.id) }}>Supprimer</button> */}
+                        <button type="button" className="mr-3 mx-3 btn btn-warning" onClick={() => { navigate(`/repos/update/${repo.id}`) }} >Modifier</button>
                         <button type="button" className="delete btn btn-danger" onClick={handleShow}>Supprimer</button>
                     </div>
                     <ModalRepo handleClose={handleClose} show={show} confirmAction={confirmAction} />

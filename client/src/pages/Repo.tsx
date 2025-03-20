@@ -7,6 +7,8 @@ export default function Repo() {
     const { getOneRepos, oneRepos } = useRepos();
     useEffect(() => {
         getOneRepos(id as string);
+        console.log(oneRepos)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
     return (
         <>
