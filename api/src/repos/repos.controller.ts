@@ -48,7 +48,7 @@ repos.post("/", validateRepo, (req: Request, res: Response, next: NextFunction) 
     const repo: Repo = { ...req.body, id: Math.ceil(Math.random() * 1000).toString(), createdAt: new Date().toISOString() };
     console.log({ repo });
     data.push(repo);
-    res.status(201).send("repo created : " + repo.id);
+    res.status(201).send({ createdRepoId: repo.id });
 });
 
 repos.delete("/:id", (req: Request, res: Response) => {
