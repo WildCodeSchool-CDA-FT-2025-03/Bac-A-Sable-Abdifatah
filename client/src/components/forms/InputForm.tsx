@@ -6,11 +6,14 @@ type InputFormProps = {
 
 }
 const InputForm = forwardRef<HTMLInputElement, InputFormProps>(({ name, title }, ref) => {
-  return (
+    return (
+        <div className="form-group">
       <label>{title}
-          <input type="text" name={name} ref={ref} />
+                <input type="text" className="form-control" name={name} ref={ref} />
       </label>
-  )
+        </div>
+
+    )
 })
 
 export default InputForm

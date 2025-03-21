@@ -1,3 +1,6 @@
+body{
+  background-color: #010707;
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -20,8 +23,8 @@
   }
 }
 
-.card {
-  padding: 2em;
+.header {
+  color: white;
 }
 
 .repoList{
@@ -41,20 +44,49 @@
 .repoCard{
   margin: 1em;
   padding: 1em;
-  border: 1px solid #ccc;
+  border: 1px solid #024a5eaa;
   border-radius: 5px;
-  width: 400px;
+  width: 300px;
   height: 300px; /* Ensure all repoCards have the same height */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #024a5eaa;
+      word-wrap: wrap;
+    word-break: break-all;
 }
+
 select {
   padding: 0.5em;
   margin: 0.5em;
   border-radius: 5px;
   border: 1px solid #ccc;
   width: 70px;
+}
+
+.repoForm form{
+  display: flex;
+  flex-direction: column;
+}
+form label{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+form label input, .selectLanguage {
+  width: 60%;
+}
+
+.createButton {
+  background-color: #198754;
+}
+
+.create-repo{
+  background-color: #024a5eaa;
+  border: 1px solid #024a5eaa;
+  border-radius: 5px;
+  color: white;
+  width: 500px;
+  padding: 12px;
 }

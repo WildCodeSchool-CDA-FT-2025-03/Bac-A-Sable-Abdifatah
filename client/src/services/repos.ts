@@ -30,11 +30,35 @@ export const useRepos = () => {
 
   const addNewRepo = async (repo: Repo) => {
     try {
-      await client.post("/repos", repo);
+      return await client.post("/repos", repo);
     } catch (error) {
       console.error(error);
     }
   };
 
-  return { repos, oneRepos, getOneRepos, getAllRepos, addNewRepo };
+    const updateRepo = async (repo: Repo, id: string) => {
+      try {
+        return await client.put(`/repos/${id}`, repo);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const deleteRepo = async (id: string) => {
+      try {
+        await client.delete(`/repos/${id}`);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    return {
+      repos,
+      oneRepos,
+      getOneRepos,
+      getAllRepos,
+      addNewRepo,
+      updateRepo,
+      deleteRepo,
+    };
 };

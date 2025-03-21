@@ -7,11 +7,13 @@ export default function Repo() {
     const { getOneRepos, oneRepos } = useRepos();
     useEffect(() => {
         getOneRepos(id as string);
+        console.log(oneRepos)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
     return (
         <>
             {oneRepos && 
-                <div key={oneRepos.id}>
+                <div className='create-repo' key={oneRepos.id}>
                     <p>URL : <a href={oneRepos.url}> {oneRepos.url}</a></p>
                     <p>Name : {oneRepos.name}</p>
                     <p> Languages : {oneRepos.languages.map((lang) => (
