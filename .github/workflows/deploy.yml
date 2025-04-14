@@ -10,11 +10,11 @@ jobs: # Liste des actions  à réaliser
     runs-on: ubuntu-latest # OS pôur exécuter l'action
     steps: # Liste des étapes de la procédures
       - name: Deploy to VPS # Nom arbitraire de l'étape (Attention, ce nom sera un indicateur dans le terminal GitHub, soyons précis)
-        uses: ubuntu@51.75.22.79 # Utilisation d'un service Tiers, ici un serive de connexion ssh **
+        uses: appleboy/ssh-action@main # Utilisation d'un service Tiers, ici un serive de connexion ssh **
         with:
-          username: $ # Info nécessaire à la connexion SSH
-          host: $ # Info nécessaire à la connexion SSH
-          password: $ # Info nécessaire à la connexion SSH
-          port: $ # Info nécessaire à la connexion SSH
-          script: cd ./apps && bash ./deploy.sh # Commande éxécuter par le service une fois la connexion faite (A adapter à votre context)
+          username: ${{ secrets.SSH_USER }} # Info nécessaire à la connexion SSH
+          host: ${{ secrets.SSH_HOST }} # Info nécessaire à la connexion SSH
+          password: ${{ secrets.SSH_PASSWORD }} # Info nécessaire à la connexion SSH
+          port: ${{ secrets.SSH_PORT }} # Info nécessaire à la connexion SSH
+          script: cd Bac-A-Sable-Abdifatah && bash ./deploy.sh # Commande éxécuter par le service une fois la connexion faite (A adapter à votre context)
 
