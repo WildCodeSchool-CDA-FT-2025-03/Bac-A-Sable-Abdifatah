@@ -11,6 +11,8 @@ jobs: # Liste des actions  à réaliser
     steps: # Liste des étapes de la procédures
       - name: Deploy to VPS # Nom arbitraire de l'étape (Attention, ce nom sera un indicateur dans le terminal GitHub, soyons précis)
         uses: appleboy/ssh-action@master # Utilisation d'un service Tiers, ici un serive de connexion ssh **
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           username: ${{ secrets.SSH_USER }} # Info nécessaire à la connexion SSH
           host: ${{ secrets.SSH_HOST }} # Info nécessaire à la connexion SSH
