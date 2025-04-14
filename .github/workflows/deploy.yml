@@ -10,7 +10,7 @@ jobs: # Liste des actions  à réaliser
     runs-on: ubuntu-latest # OS pôur exécuter l'action
     steps: # Liste des étapes de la procédures
       - name: Deploy to VPS # Nom arbitraire de l'étape (Attention, ce nom sera un indicateur dans le terminal GitHub, soyons précis)
-        uses: appleboy/ssh-action@main # Utilisation d'un service Tiers, ici un serive de connexion ssh **
+        uses: appleboy/ssh-action@master # Utilisation d'un service Tiers, ici un serive de connexion ssh **
         with:
           username: ${{ secrets.SSH_USER }} # Info nécessaire à la connexion SSH
           host: ${{ secrets.SSH_HOST }} # Info nécessaire à la connexion SSH
