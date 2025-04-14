@@ -8,22 +8,22 @@ export const useRepos = () => {
 
   const getAllRepos = async (limit: string) => {
     client
-      .get(`/repos?limit=${limit}`)
-      .then((repos) => {
+      .get<Repo[]>(`/repos?limit=${limit}`)
+      .then((repos: { data: Repo[] }) => {
         setRepos(repos.data);
       })
-      .catch((error) => {
+      .catch((error: unknown) => {
         console.error(error);
       });
   };
 
   const getOneRepos = (id: string) => {
     client
-      .get(`/repos/${id}`)
+      .get<Repo>(`/repos/${id}`)
       .then((repo) => {
         setOneRepos(repo.data as Repo);
       })
-      .catch((error) => {
+      .catch((error: unknown) => {
         console.error(error);
       });
   };
