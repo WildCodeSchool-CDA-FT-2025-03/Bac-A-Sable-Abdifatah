@@ -1,6 +1,5 @@
-cd Bac-A-Sable-Abdifatah # O se déplace a la racine du dossier de projet
 git switch main # On force la bascule sur notre branche de référence (main en cas de merge)
-git pull # On met à jour la branche
+git pull origin main # On met à jour la branche
 
 
 docker stop $(docker ps -a -q) # On arrête tous les containers en cours
