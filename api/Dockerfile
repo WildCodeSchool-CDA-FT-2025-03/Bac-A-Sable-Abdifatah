@@ -1,4 +1,4 @@
-FROM node:lts-alpine as PROD
+FROM mirror.gcr.io/library/node:18-alpine as prod
 
 WORKDIR /app
 

@@ -1,4 +1,4 @@
-FROM node:lts-alpine as RUNNER
+FROM mirror.gcr.io/library/node:18-alpine as runner
 
 WORKDIR /app
 

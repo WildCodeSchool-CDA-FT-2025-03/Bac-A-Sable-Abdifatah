@@ -1,4 +1,3 @@
-version: "2.4"
 services:  # C'est la propriété de début
   api: # tag de ton image
     build: ./api # Source pour trouver le Dockerfile
