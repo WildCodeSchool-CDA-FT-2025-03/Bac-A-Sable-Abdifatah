@@ -19,7 +19,7 @@ function Home() {
   return (
     <>
       <div className="header">
-        <h1>Liste de Repo depuis mon github</h1>
+        <h1>Liste de Repo depuis mon github Continuous deployment</h1>
         <Link to={"/repos/create"}>Ajouter une repo</Link><br />
       <label htmlFor="">
          Nombre de repos affichés
