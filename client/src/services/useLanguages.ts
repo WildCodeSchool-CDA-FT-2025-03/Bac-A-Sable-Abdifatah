@@ -1,16 +1,15 @@
 import  { useState } from 'react'
 import { client } from './client'
-// import { Languages } from '../types/languages.type'
 
 const useLanguages = () => {
     const [languages, setLanguages] = useState<string[]>([])
 
     const getAllLanguages = ()=> {
-        client.get('/languages')
+        client.get<string[]>('/languages')
         .then((languages) => {
             setLanguages(languages.data)
         })
-        .catch((error) => { 
+            .catch((error: unknown) => { 
             console.error(error)
         }
         )

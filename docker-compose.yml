@@ -1,0 +1,20 @@
+version: "2.4"
+services:  # C'est la propriété de début
+  api: # tag de ton image
+    build: ./api # Source pour trouver le Dockerfile
+    ports:
+      - 3000:3000 # Binding de port entre la machine et le container
+    command: npm run prod # Commande d'éxécution
+    restart: always
+    environment: # Déclaration des variables d'env si non sensible
+      - CLIENT_URL=http://localhost:4173
+      - PORT=3000
+
+  client: # tag de ton image
+    build: ./client # Source pour le Dockerfile
+    command: npm run preview # Commande d'éxécution
+    restart: always
+    env_file: # Si besoin de variables issus d'un fichier d'env sur la machine
+      - ./client/.env
+    ports:
+      - 4173:4173 # Binding de port entre la machine et le container
