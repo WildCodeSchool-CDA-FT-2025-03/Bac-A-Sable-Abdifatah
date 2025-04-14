@@ -1,0 +1,19 @@
+name: Automatic Deploy on VPS with bash # Nom donné à notre action automatique, ce nom est arbitraire
+
+on: # Listener d'evenements github *
+  push:
+    branches:
+      - test@deploy_with_docker #Nom par defaut, a adapter à votre branche (Dans ce cas, chaque push sur la branche déclenchera l'acion. Ce critère peut bien évidement être adapter (Merge, ...))
+
+jobs: # Liste des actions  à réaliser
+  deploy: # Nom arbitraire de l'action spécifique
+    runs-on: ubuntu-latest # OS pôur exécuter l'action
+    steps: # Liste des étapes de la procédures
+      - name: Deploy to VPS # Nom arbitraire de l'étape (Attention, ce nom sera un indicateur dans le terminal GitHub, soyons précis)
+        uses: appleboy/ssh-action@master # Utilisation d'un service Tiers, ici un serive de connexion ssh **
+        with:
+          username: $ # Info nécessaire à la connexion SSH
+          host: $ # Info nécessaire à la connexion SSH
+          password: $ # Info nécessaire à la connexion SSH
+          port: $ # Info nécessaire à la connexion SSH
+          script: cd ./apps && bash ./deploy.sh # Commande éxécuter par le service une fois la connexion faite (A adapter à votre context)
