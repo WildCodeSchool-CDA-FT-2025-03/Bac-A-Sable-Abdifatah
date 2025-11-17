@@ -20,25 +20,35 @@ function Home() {
     <>
       <div className="header">
         <h1>Liste de Repo depuis mon github! showing if it works this time</h1>
-        <Link to={"/repos/create"}>Ajouter une repo</Link><br />
-      <label htmlFor="">
-         Nombre de repos affichés
-        <select value={searchParam.get('limit') || '5'} name="limit" id="" onChange={(e) => setSearchParam({ limit: e.target.value })}>
-          <option value="5" >5</option>
-          <option value="10" >10</option>
-          <option value="15" >15</option>
-        </select>
-      </label>
+        <Link to={"/repos/create"}>Ajouter une repoooo</Link>
+        <br />
+        <label htmlFor="">
+          Nombre de repos affichés
+          <select
+            value={searchParam.get("limit") || "5"}
+            name="limit"
+            id=""
+            onChange={(e) => setSearchParam({ limit: e.target.value })}
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+          </select>
+        </label>
       </div>
       <div className="repoList">
-        {
-          repos.length > 0 && repos.map((repo) => (
-            <ReposCard cls={"repoCard shadow-lg p-3 mb-5 rounded"} key={repo.id} repo={repo} deleteSelectedRepo={deleteSelectedRepo} />
-          ))
-        }
+        {repos.length > 0 &&
+          repos.map((repo) => (
+            <ReposCard
+              cls={"repoCard shadow-lg p-3 mb-5 rounded"}
+              key={repo.id}
+              repo={repo}
+              deleteSelectedRepo={deleteSelectedRepo}
+            />
+          ))}
       </div>
     </>
-  )
+  );
 }
 
 export default Home
